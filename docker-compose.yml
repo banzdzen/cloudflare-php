@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  cloudflare-php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "cloudflare-php"
+    ports:
+     - "8099:80"
+    volumes:
+     - .:/var/www
+     - ~/.ssh:/root/.ssh

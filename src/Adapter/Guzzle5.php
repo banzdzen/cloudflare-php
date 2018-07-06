@@ -10,6 +10,7 @@ namespace Cloudflare\API\Adapter;
 use Cloudflare\API\Auth\Auth;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Psr7\Response;
 
 class Guzzle5 implements Adapter
 {
@@ -87,7 +88,19 @@ class Guzzle5 implements Adapter
             ($method === 'get' ? 'query' : 'json') => $data,
         ]);
 
-        $this->checkError($response);
+
+        /** @var \GuzzleHttp\Message\Response $response*/
+        $psrResponse = new  Response(
+            $response->getStatusCode(),
+            $response->getHeaders(),
+            $response->getBody()->getContents(),
+            $response->getProtocolVersion(),
+            $response->getReasonPhrase()
+        );
+
+
+        $this->checkError($psrResponse);
+
 
         return $response;
     }
