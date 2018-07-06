@@ -102,7 +102,7 @@ class Guzzle5 implements Adapter
         $this->checkError($psrResponse);
 
 
-        return $response;
+        return $psrResponse;
     }
 
     private function checkError(ResponseInterface $response)
