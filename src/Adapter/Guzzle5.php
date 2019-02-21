@@ -83,6 +83,10 @@ class Guzzle5 implements Adapter
             throw new \InvalidArgumentException('Request method must be get, post, put, patch, or delete');
         }
 
+        if($method !== 'get') {
+            $headers['Content-Type'] = 'application/json';
+        }
+
         $response = $this->client->$method($uri, [
             'headers' => $headers,
             ($method === 'get' ? 'query' : 'json') => $data,
